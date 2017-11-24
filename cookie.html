@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Cookie</title>
+		<h3>js的简单cookie实现</h3>
+	</head>
+	<body onload="checkCookie()">
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(name,val,day){
+				var date =new Date();	
+				//设置现有的时间加上传来时间最后等于cookie的到期时间
+				date.setTime(date.getTime()+(day*24*60*60*1000));
+				//设置cookie的到期时间参数
+				var expires="expires:"+date.toGMTString();
+				//设置cookie(key,val,{到期时间},{cookie路径默认为当前页})
+				$.cookie(name,val,{expires},{path:"/"});
+			}
+			
+			function checkCookie(){
+				alert($.cookie("name"));
+				//通过key来拿到对应val
+			  var user=$.cookie("name");
+			  if (user!=""&&user!=null){
+			    alert("Welcome again " + user);
+			  }else {
+			  	//带输入框的弹窗
+			    user = prompt("Please enter your name:","");
+			    if (user!="" && user!=null){
+			      setCookie("name",user,3);
+			    }
+			  }
+			}
+			
+		</script>
+	</body>
+</html>
